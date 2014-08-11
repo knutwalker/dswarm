@@ -1,12 +1,13 @@
 package org.dswarm.persistence.model.job;
 
+import java.util.Collections;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.google.common.collect.Sets;
+import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
 
 import org.dswarm.persistence.model.ExtendedBasicDMPJPAObject;
 import org.dswarm.persistence.model.resource.DataModel;
@@ -15,7 +16,7 @@ import org.dswarm.persistence.util.DMPPersistenceUtil;
 /**
  * A job is a collection of {@link Mapping}s that can be execution on a given input {@link DataModel} and be written to a given
  * output {@link DataModel}.
- * 
+ *
  * @author tgaengler
  */
 @XmlRootElement
@@ -37,7 +38,7 @@ public class Job extends ExtendedBasicDMPJPAObject {
 
 	/**
 	 * Gets the collection of mappings of the job.
-	 * 
+	 *
 	 * @return the collection of mappings of the job
 	 */
 	public Set<Mapping> getMappings() {
@@ -47,7 +48,7 @@ public class Job extends ExtendedBasicDMPJPAObject {
 
 	/**
 	 * Sets the collection of mappings of the job.
-	 * 
+	 *
 	 * @param mappingsArg a new collection of mappings
 	 */
 	public void setMappings(final Set<Mapping> mappingsArg) {
@@ -61,7 +62,12 @@ public class Job extends ExtendedBasicDMPJPAObject {
 
 			if (mappings == null) {
 
-				mappings = Sets.newCopyOnWriteArraySet();
+				final ConcurrentLinkedHashMap<Mapping, Boolean> map =
+						new ConcurrentLinkedHashMap.Builder<Mapping, Boolean>()
+								.initialCapacity(32)
+								.maximumWeightedCapacity(Integer.MAX_VALUE)
+								.build();
+				mappings = Collections.newSetFromMap(map);
 			}
 
 			if (!DMPPersistenceUtil.getMappingUtils().completeEquals(mappings, mappingsArg)) {

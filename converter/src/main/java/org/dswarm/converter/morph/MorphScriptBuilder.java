@@ -65,7 +65,7 @@ import org.dswarm.persistence.model.schema.MappingAttributePathInstance;
 
 /**
  * Creates a metamorph script from a given {@link Task}.
- * 
+ *
  * @author phorn
  * @author niederl
  * @author tgaengler
@@ -247,7 +247,7 @@ public class MorphScriptBuilder {
 
 		if (transformationComponent == null) {
 
-			MorphScriptBuilder.LOG.debug("transformation component for mapping '" + mapping.getId() + "' was empty");
+			MorphScriptBuilder.LOG.debug("transformation component for mapping '{}' was empty", mapping.getId());
 
 			// just delegate input attribute path to output attribute path
 
@@ -258,7 +258,7 @@ public class MorphScriptBuilder {
 
 		if (transformationComponent.getParameterMappings() == null || transformationComponent.getParameterMappings().isEmpty()) {
 
-			MorphScriptBuilder.LOG.debug("parameter mappings for transformation component shouldn't be empty, mapping: '" + mapping.getId() + "'");
+			MorphScriptBuilder.LOG.debug("parameter mappings for transformation component shouldn't be empty, mapping: '{}'", mapping.getId());
 
 			// delegate input attribute path to output attribute path + add possible transformations (components)
 
