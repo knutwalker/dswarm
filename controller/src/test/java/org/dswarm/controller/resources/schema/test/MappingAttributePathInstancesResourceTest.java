@@ -96,7 +96,7 @@ public class MappingAttributePathInstancesResourceTest
 		attributessArray.add(attribute2JSON);
 		attributessArray.add(attribute1JSON);
 
-		attributePathJSON.put("attributes", attributessArray);
+		attributePathJSON.set("attributes", attributessArray);
 
 		attributePathJSONString = objectMapper.writeValueAsString(attributePathJSON);
 		final AttributePath expectedAttributePath = objectMapper.readValue(attributePathJSONString, AttributePath.class);
@@ -109,8 +109,8 @@ public class MappingAttributePathInstancesResourceTest
 		final ObjectNode finalFilterJSON = objectMapper.readValue(filterJSONString, ObjectNode.class);
 
 		final ObjectNode mappingAttributePathInstanceJSON = objectMapper.readValue(objectJSONString, ObjectNode.class);
-		mappingAttributePathInstanceJSON.put("attribute_path", finalAttributePathJSON);
-		mappingAttributePathInstanceJSON.put("filter", finalFilterJSON);
+		mappingAttributePathInstanceJSON.set("attribute_path", finalAttributePathJSON);
+		mappingAttributePathInstanceJSON.set("filter", finalFilterJSON);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(mappingAttributePathInstanceJSON);
@@ -166,8 +166,8 @@ public class MappingAttributePathInstancesResourceTest
 		// mapping attribute path instance name update
 		final String updateMappingAttributePathInstanceNameString = persistedMappingAttributePathInstance.getName() + " update";
 		updatedMappingAttributePathInstanceJSON.put("name", updateMappingAttributePathInstanceNameString);
-		updatedMappingAttributePathInstanceJSON.put("filter", updateFilterJSON);
-		updatedMappingAttributePathInstanceJSON.put("attribute_path", updatedAttributePathJSON);
+		updatedMappingAttributePathInstanceJSON.set("filter", updateFilterJSON);
+		updatedMappingAttributePathInstanceJSON.set("attribute_path", updatedAttributePathJSON);
 
 		updatedMappingAttributePathInstanceJSONString = objectMapper.writeValueAsString(updatedMappingAttributePathInstanceJSON);
 

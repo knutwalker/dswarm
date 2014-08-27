@@ -61,13 +61,7 @@ public class Job extends ExtendedBasicDMPJPAObject {
 		if (mappingsArg != null) {
 
 			if (mappings == null) {
-
-				final ConcurrentLinkedHashMap<Mapping, Boolean> map =
-						new ConcurrentLinkedHashMap.Builder<Mapping, Boolean>()
-								.initialCapacity(32)
-								.maximumWeightedCapacity(Integer.MAX_VALUE)
-								.build();
-				mappings = Collections.newSetFromMap(map);
+				mappings = newSet();
 			}
 
 			if (!DMPPersistenceUtil.getMappingUtils().completeEquals(mappings, mappingsArg)) {
@@ -90,5 +84,21 @@ public class Job extends ExtendedBasicDMPJPAObject {
 
 		return Job.class.isInstance(obj) && super.completeEquals(obj)
 				&& DMPPersistenceUtil.getMappingUtils().completeEquals(((Job) obj).getMappings(), getMappings());
+	}
+
+	/**
+	 * Before DD-551, set was a {@link java.util.concurrent.CopyOnWriteArraySet},
+	 * which did not maintain insertion order, but provided simple, yet expensive
+	 * thread-safety.
+	 *
+	 * @return a new set that maintains insertion order and is concurrently usable
+	 */
+	private static Set<Mapping> newSet() {
+		final ConcurrentLinkedHashMap<Mapping, Boolean> backingMap =
+				new ConcurrentLinkedHashMap.Builder<Mapping, Boolean>()
+						.initialCapacity(32)
+						.maximumWeightedCapacity(Integer.MAX_VALUE)
+						.build();
+		return Collections.newSetFromMap(backingMap);
 	}
 }

@@ -80,17 +80,17 @@ public class DataModelsResourceTest extends
 
 	private Clasz							recordClass;
 
-	private Clasz							updateRecordClass	= null;
+	private Clasz							updateRecordClass;
 
 	private Schema							schema;
 
 	private Configuration					configuration;
 
-	private Configuration					updateConfiguration	= null;
+	private Configuration					updateConfiguration;
 
 	private Resource						resource;
 
-	private Resource						updateResource		= null;
+	private Resource						updateResource;
 
 	public DataModelsResourceTest() {
 
@@ -153,7 +153,7 @@ public class DataModelsResourceTest extends
 
 		configurationsArray.add(persistedConfigurationJSON);
 
-		resourceJSON.put("configurations", configurationsArray);
+		resourceJSON.set("configurations", configurationsArray);
 
 		// re-init expect resource
 		resourceJSONString = objectMapper.writeValueAsString(resourceJSON);
@@ -239,13 +239,13 @@ public class DataModelsResourceTest extends
 			attributePathsArray.add(attributePathJSON);
 		}
 
-		schemaJSON.put("attribute_paths", attributePathsArray);
+		schemaJSON.set("attribute_paths", attributePathsArray);
 
 		// manipulate record class
 		final String recordClassJSONString = objectMapper.writeValueAsString(recordClass);
 		final ObjectNode recordClassJSON = objectMapper.readValue(recordClassJSONString, ObjectNode.class);
 
-		schemaJSON.put("record_class", recordClassJSON);
+		schemaJSON.set("record_class", recordClassJSON);
 
 		// re-init expect schema
 		schemaJSONString = objectMapper.writeValueAsString(schemaJSON);
@@ -263,17 +263,17 @@ public class DataModelsResourceTest extends
 		final String finalResourceJSONString = objectMapper.writeValueAsString(resource);
 		final ObjectNode finalResourceJSON = objectMapper.readValue(finalResourceJSONString, ObjectNode.class);
 
-		objectJSON.put("data_resource", finalResourceJSON);
+		objectJSON.set("data_resource", finalResourceJSON);
 
 		final String finalConfigurationJSONString = objectMapper.writeValueAsString(resource.getConfigurations().iterator().next());
 		final ObjectNode finalConfigurationJSON = objectMapper.readValue(finalConfigurationJSONString, ObjectNode.class);
 
-		objectJSON.put("configuration", finalConfigurationJSON);
+		objectJSON.set("configuration", finalConfigurationJSON);
 
 		final String finalSchemaJSONString = objectMapper.writeValueAsString(schema);
 		final ObjectNode finalSchemaJSON = objectMapper.readValue(finalSchemaJSONString, ObjectNode.class);
 
-		objectJSON.put("schema", finalSchemaJSON);
+		objectJSON.set("schema", finalSchemaJSON);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);
@@ -372,15 +372,9 @@ public class DataModelsResourceTest extends
 			}
 		}
 
-		for (final AttributePath attributePath : attributePaths) {
+		attributePaths.forEach(attributePathsResourceTestUtils::deleteObjectViaPersistenceServiceTestUtils);
 
-			attributePathsResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(attributePath);
-		}
-
-		for (final Attribute attribute : attributes) {
-
-			attributesResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(attribute);
-		}
+		attributes.forEach(attributesResourceTestUtils::deleteObjectViaPersistenceServiceTestUtils);
 
 		resourcesResourceTestUtils.deleteObject(resource);
 		configurationsResourceTestUtils.deleteObject(config);
@@ -469,24 +463,21 @@ public class DataModelsResourceTest extends
 
 		cleanUpDB(dataModel);
 
-		if (schema != null) {
+		final Set<AttributePath> attributePaths = schema.getAttributePaths();
 
-			final Set<AttributePath> attributePaths = schema.getAttributePaths();
+		if (attributePaths != null) {
 
-			if (attributePaths != null) {
+			for (final AttributePath attributePath : attributePaths) {
 
-				for (final AttributePath attributePath : attributePaths) {
+				this.attributePaths.put(attributePath.getId(), attributePath);
 
-					this.attributePaths.put(attributePath.getId(), attributePath);
+				final Set<Attribute> attributes = attributePath.getAttributes();
 
-					final Set<Attribute> attributes = attributePath.getAttributes();
+				if (attributes != null) {
 
-					if (attributes != null) {
+					for (final Attribute attribute : attributes) {
 
-						for (final Attribute attribute : attributes) {
-
-							this.attributes.put(attribute.getId(), attribute);
-						}
+						this.attributes.put(attribute.getId(), attribute);
 					}
 				}
 			}
@@ -581,24 +572,21 @@ public class DataModelsResourceTest extends
 
 		cleanUpDB(dataModel);
 
-		if (schema != null) {
+		final Set<AttributePath> attributePaths = schema.getAttributePaths();
 
-			final Set<AttributePath> attributePaths = schema.getAttributePaths();
+		if (attributePaths != null) {
 
-			if (attributePaths != null) {
+			for (final AttributePath attributePath : attributePaths) {
 
-				for (final AttributePath attributePath : attributePaths) {
+				this.attributePaths.put(attributePath.getId(), attributePath);
 
-					this.attributePaths.put(attributePath.getId(), attributePath);
+				final Set<Attribute> attributes = attributePath.getAttributes();
 
-					final Set<Attribute> attributes = attributePath.getAttributes();
+				if (attributes != null) {
 
-					if (attributes != null) {
+					for (final Attribute attribute : attributes) {
 
-						for (final Attribute attribute : attributes) {
-
-							this.attributes.put(attribute.getId(), attribute);
-						}
+						this.attributes.put(attribute.getId(), attribute);
 					}
 				}
 			}
@@ -753,15 +741,9 @@ public class DataModelsResourceTest extends
 
 		schemasResourceTestUtils.deleteObject(schema);
 
-		for (final AttributePath attributePath : attributePaths.values()) {
+		attributePaths.values().forEach(attributePathsResourceTestUtils::deleteObjectViaPersistenceServiceTestUtils);
 
-			attributePathsResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(attributePath);
-		}
-
-		for (final Attribute attribute : attributes.values()) {
-
-			attributesResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(attribute);
-		}
+		attributes.values().forEach(attributesResourceTestUtils::deleteObjectViaPersistenceServiceTestUtils);
 
 		claszesResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(recordClass);
 

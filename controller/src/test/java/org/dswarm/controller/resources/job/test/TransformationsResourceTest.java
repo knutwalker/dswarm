@@ -66,7 +66,7 @@ public class TransformationsResourceTest
 
 		Assert.assertNotNull("the function JSON shouldn't be null", finalFunctionJSON);
 
-		componentJSON.put("function", finalFunctionJSON);
+		componentJSON.set("function", finalFunctionJSON);
 
 		// re-init expect component
 		componentJSONString = objectMapper.writeValueAsString(componentJSON);
@@ -89,7 +89,7 @@ public class TransformationsResourceTest
 
 		componentsJSONArray.add(finalComponentJSON);
 
-		objectJSON.put("components", componentsJSONArray);
+		objectJSON.set("components", componentsJSONArray);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);
@@ -114,7 +114,7 @@ public class TransformationsResourceTest
 		final ObjectNode componentJSON = objectMapper.readValue(componentJSONString, ObjectNode.class);
 
 		// update function in component object
-		componentJSON.put("function", functionJSON);
+		componentJSON.set("function", functionJSON);
 		componentJSONString = objectMapper.writeValueAsString(componentJSON);
 		final Component expectedComponent = objectMapper.readValue(componentJSONString, Component.class);
 		updateComponent = componentsResourceTestUtils.createObject(componentJSONString, expectedComponent);

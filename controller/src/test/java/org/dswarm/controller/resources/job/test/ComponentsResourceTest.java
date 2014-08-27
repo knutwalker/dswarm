@@ -63,7 +63,7 @@ public class ComponentsResourceTest extends
 
 		Assert.assertNotNull("the function JSON shouldn't be null", finalFunctionJSON);
 
-		objectJSON.put("function", finalFunctionJSON);
+		objectJSON.set("function", finalFunctionJSON);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);

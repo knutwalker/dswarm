@@ -64,7 +64,7 @@ public class MappingAttributePathInstance extends AttributePathInstance {
 
 	/**
 	 * Gets the filter of the mapping attribute path instance.
-	 * 
+	 *
 	 * @return the filter of the mapping attribute path instance
 	 */
 	public Filter getFilter() {
@@ -74,7 +74,7 @@ public class MappingAttributePathInstance extends AttributePathInstance {
 
 	/**
 	 * Sets the filter of the mapping attribute path instance.
-	 * 
+	 *
 	 * @param filterArg a new filter
 	 */
 	public void setFilter(final Filter filterArg) {
@@ -89,7 +89,7 @@ public class MappingAttributePathInstance extends AttributePathInstance {
 
 	public void setOrdinal(final Integer ordinalArg) {
 
-		if (ordinalArg != null && ordinalArg.intValue() < 0) {
+		if (ordinalArg != null && ordinalArg < 0) {
 
 			throw new IllegalArgumentException("only positive integer values are allowed for ordinals");
 		}

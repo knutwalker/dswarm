@@ -70,17 +70,6 @@ public class MorphScriptBuilderTest extends GuicedTest {
 
 		final Task task = objectMapper.readValue(request, Task.class);
 
-		for (final Mapping mapping : task.getJob().getMappings()) {
-			System.out.printf("Mapping<%s> [%s]%n", mapping.getName(), mapping.getId());
-			for (final MappingAttributePathInstance pathInstance : mapping.getInputAttributePaths()) {
-				final String attributePath = pathInstance.getAttributePath().toAttributePath();
-				System.out.printf("InputAttributePath<%s> [%s | %s]%n", pathInstance.getId(), pathInstance.getName(), attributePath);
-			}
-			final MappingAttributePathInstance pathInstance = mapping.getOutputAttributePath();
-			final String attributePath = pathInstance.getAttributePath().toAttributePath();
-			System.out.printf("OutputAttributePath<%s> [%s | %s]%n", pathInstance.getId(), pathInstance.getName(), attributePath);
-		}
-
 		final String morphScriptString = new MorphScriptBuilder().apply(task).toString();
 
 		Assert.assertEquals(result, morphScriptString);

@@ -33,7 +33,7 @@ import org.dswarm.controller.resources.schema.utils.SchemasResourceUtils;
  * which are lazily loaded via standard {@code Provider}s and offers a {@code reset()} method, to reset the cache, effectively
  * creating a new scope, given that the Utils class itself are not Singleton-scoped. see
  * https://jira.slub-dresden.de/browse/DD-311
- * 
+ *
  * @author phorn
  */
 @Singleton
@@ -83,7 +83,7 @@ public class ResourceUtilsFactory {
 	/**
 	 * Reset the internal instance cache, effectively creating a new injection scope. You would use this within an constructor of
 	 * a Jersey Resource, for example.
-	 * 
+	 *
 	 * @return this instance for a fluent interface;
 	 */
 	public synchronized ResourceUtilsFactory reset() {
@@ -94,12 +94,13 @@ public class ResourceUtilsFactory {
 
 	/**
 	 * Get an instance of any BasicResourceUtils
-	 * 
+	 *
 	 * @param cls the class of the desired instance
 	 * @param <T> the type of the desired instance
 	 * @return an instance of T, guaranteed to be not null;
 	 * @throws DMPControllerException if there is no provider for this type available
 	 */
+	@SuppressWarnings("unchecked")
 	public synchronized <T extends BasicResourceUtils> T get(final Class<T> cls) throws DMPControllerException {
 		ResourceUtilsFactory.LOG.debug(String.format("Lookup ResourceUtils for %s", cls.getSimpleName()));
 		final T instance;
@@ -116,7 +117,6 @@ public class ResourceUtilsFactory {
 
 			final Provider<T> provider;
 			try {
-				// noinspection unchecked
 				provider = (Provider<T>) genericProvider;
 			} catch (final ClassCastException e) {
 				throw new DMPControllerException(String.format(ResourceUtilsFactory.PROVIDER_CAST_FAIL, genericProvider, cls.getSimpleName()), e);

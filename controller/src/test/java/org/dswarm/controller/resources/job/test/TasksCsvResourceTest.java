@@ -186,10 +186,10 @@ public class TasksCsvResourceTest extends ResourceTest {
 		final ObjectNode finalDataModelJSON = objectMapper.readValue(finalDataModelJSONString, ObjectNode.class);
 
 		final ObjectNode taskJSON = objectMapper.readValue(taskJSONString, ObjectNode.class);
-		taskJSON.put("input_data_model", finalDataModelJSON);
+		taskJSON.set("input_data_model", finalDataModelJSON);
 
 		// manipulate output data model (output data model = input data model (for now))
-		taskJSON.put("output_data_model", finalDataModelJSON);
+		taskJSON.set("output_data_model", finalDataModelJSON);
 
 		// manipulate attributes
 		final ObjectNode mappingJSON = (ObjectNode) ((ArrayNode) ((ObjectNode) taskJSON.get("job")).get("mappings")).get(0);

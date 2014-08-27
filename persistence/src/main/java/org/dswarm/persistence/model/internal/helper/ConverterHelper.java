@@ -11,7 +11,7 @@ import org.dswarm.persistence.util.DMPPersistenceUtil;
 
 /**
  * A converter helper for RDF to JSON transformation.
- * 
+ *
  * @author tgaengler
  */
 public class ConverterHelper {
@@ -28,7 +28,7 @@ public class ConverterHelper {
 
 	/**
 	 * Creates a new converter helper with the given property.
-	 * 
+	 *
 	 * @param property a property
 	 */
 	public ConverterHelper(final String property) {
@@ -39,7 +39,7 @@ public class ConverterHelper {
 
 	/**
 	 * Adds a literal or URI to the object list.
-	 * 
+	 *
 	 * @param object a new literal or URI
 	 */
 	public void addLiteralOrURI(final String object) {
@@ -49,7 +49,7 @@ public class ConverterHelper {
 
 	/**
 	 * Adds a JSON node to the object list.
-	 * 
+	 *
 	 * @param jsonNode a JSON node
 	 */
 	public void addJsonNode(final JsonNode jsonNode) {
@@ -59,7 +59,7 @@ public class ConverterHelper {
 
 	/**
 	 * Return true, if the object list consists of more than one object; otherwise false.
-	 * 
+	 *
 	 * @return true, if the object list consists of more than one object; otherwise false
 	 */
 	public boolean isArray() {
@@ -69,7 +69,7 @@ public class ConverterHelper {
 
 	/**
 	 * Serialises the property + object list to a JSON array.
-	 * 
+	 *
 	 * @param json the JSON array that should be filled
 	 * @return the filled JSON array
 	 */
@@ -93,14 +93,14 @@ public class ConverterHelper {
 				arrayNode.add(object.getLiteralOrURI());
 			}
 
-			objectJSONObject.put(property, arrayNode);
+			objectJSONObject.set(property, arrayNode);
 		} else {
 
 			final Object object = objects.get(0);
 
 			if (object.isJsonNode()) {
 
-				objectJSONObject.put(property, object.getJsonNode());
+				objectJSONObject.set(property, object.getJsonNode());
 			} else {
 
 				objectJSONObject.put(property, object.getLiteralOrURI());

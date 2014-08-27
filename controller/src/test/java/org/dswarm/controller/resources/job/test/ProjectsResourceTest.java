@@ -191,12 +191,12 @@ public class ProjectsResourceTest extends
 		final String finalInputDataModelJSONString = objectMapper.writeValueAsString(inputDataModel);
 		final ObjectNode finalInputDataModelJSON = objectMapper.readValue(finalInputDataModelJSONString, ObjectNode.class);
 
-		objectJSON.put("input_data_model", finalInputDataModelJSON);
+		objectJSON.set("input_data_model", finalInputDataModelJSON);
 
 		final String finalOutputDataModelJSONString = objectMapper.writeValueAsString(outputDataModel);
 		final ObjectNode finalOutputDataModelJSON = objectMapper.readValue(finalOutputDataModelJSONString, ObjectNode.class);
 
-		objectJSON.put("output_data_model", finalOutputDataModelJSON);
+		objectJSON.set("output_data_model", finalOutputDataModelJSON);
 
 		final String finalSimpleMappingJSONString = objectMapper.writeValueAsString(simpleMapping);
 		final ObjectNode finalSimpleMappingJSON = objectMapper.readValue(finalSimpleMappingJSONString, ObjectNode.class);
@@ -205,7 +205,7 @@ public class ProjectsResourceTest extends
 
 		mappingsArray.add(finalSimpleMappingJSON);
 
-		objectJSON.put("mappings", mappingsArray);
+		objectJSON.set("mappings", mappingsArray);
 
 		final String finalFunctionJSONString = objectMapper.writeValueAsString(function);
 		final ObjectNode finalFunctionJSON = objectMapper.readValue(finalFunctionJSONString, ObjectNode.class);
@@ -214,7 +214,7 @@ public class ProjectsResourceTest extends
 
 		functionsArray.add(finalFunctionJSON);
 
-		objectJSON.put("functions", functionsArray);
+		objectJSON.set("functions", functionsArray);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);
@@ -287,25 +287,13 @@ public class ProjectsResourceTest extends
 
 		// START mappings tear down
 
-		for (final Mapping mapping : mappings.values()) {
+		mappings.values().forEach(mappingsResourceTestUtils::deleteObject);
 
-			mappingsResourceTestUtils.deleteObject(mapping);
-		}
+		mappingAttributePathInstances.values().forEach(mappingAttributePathInstancesResourceTestUtils::deleteObject);
 
-		for (final MappingAttributePathInstance mappingAttributePathInstance : mappingAttributePathInstances.values()) {
+		attributePaths.values().forEach(attributePathsResourceTestUtils::deleteObjectViaPersistenceServiceTestUtils);
 
-			mappingAttributePathInstancesResourceTestUtils.deleteObject(mappingAttributePathInstance);
-		}
-
-		for (final AttributePath attributePath : attributePaths.values()) {
-
-			attributePathsResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(attributePath);
-		}
-
-		for (final Attribute attribute : attributes.values()) {
-
-			attributesResourceTestUtils.deleteObjectViaPersistenceServiceTestUtils(attribute);
-		}
+		attributes.values().forEach(attributesResourceTestUtils::deleteObjectViaPersistenceServiceTestUtils);
 
 		transformationsResourceTestUtils.deleteObject(transformation);
 
@@ -372,7 +360,7 @@ public class ProjectsResourceTest extends
 		// - component
 		String updateComponentJSONString = DMPPersistenceUtil.getResourceAsString("component1.json");
 		final ObjectNode updateComponentJSON = objectMapper.readValue(updateComponentJSONString, ObjectNode.class);
-		updateComponentJSON.put("function", finalUpdateFunctionJSON);
+		updateComponentJSON.set("function", finalUpdateFunctionJSON);
 		updateComponentJSONString = objectMapper.writeValueAsString(updateComponentJSON);
 		final Component expectedComponent = objectMapper.readValue(updateComponentJSONString, Component.class);
 		updateComponent = componentsResourceTestUtils.createObject(updateComponentJSONString, expectedComponent);
@@ -384,7 +372,7 @@ public class ProjectsResourceTest extends
 		final ObjectNode finalUpdateComponentJSON = objectMapper.readValue(finalUpdateComponentJSONString, ObjectNode.class);
 		final ArrayNode updateComponentsJSONArray = objectMapper.createArrayNode();
 		updateComponentsJSONArray.add(finalUpdateComponentJSON);
-		updateTransformationJSON.put("components", updateComponentsJSONArray);
+		updateTransformationJSON.set("components", updateComponentsJSONArray);
 		updateTransformationJSONString = objectMapper.writeValueAsString(updateTransformationJSON);
 		final Transformation expectedTransformation = objectMapper.readValue(updateTransformationJSONString, Transformation.class);
 		updateTransformation = transformationsResourceTestUtils.createObject(updateTransformationJSONString, expectedTransformation);
@@ -394,7 +382,7 @@ public class ProjectsResourceTest extends
 		final ObjectNode updateTransformationComponentJSON = objectMapper.readValue(updateTransformationComponentJSONString, ObjectNode.class);
 		final String finalUpdateTransformationJSONString = objectMapper.writeValueAsString(updateTransformation);
 		final ObjectNode finalUpdateTransformationJSON = objectMapper.readValue(finalUpdateTransformationJSONString, ObjectNode.class);
-		updateTransformationComponentJSON.put("function", finalUpdateTransformationJSON);
+		updateTransformationComponentJSON.set("function", finalUpdateTransformationJSON);
 		updateTransformationComponentJSONString = objectMapper.writeValueAsString(updateTransformationComponentJSON);
 		final Component expectedTransformationComponent = objectMapper.readValue(updateTransformationComponentJSONString, Component.class);
 		updateTransformationComponent = componentsResourceTestUtils.createObject(updateTransformationComponentJSONString,
@@ -406,7 +394,7 @@ public class ProjectsResourceTest extends
 		final String finalUpdateTransformationComponentJSONString = objectMapper.writeValueAsString(updateTransformationComponent);
 		final ObjectNode finalUpdateTransformationComponentJSON = objectMapper.readValue(finalUpdateTransformationComponentJSONString,
 				ObjectNode.class);
-		updateMappingJSON.put("transformation", finalUpdateTransformationComponentJSON);
+		updateMappingJSON.set("transformation", finalUpdateTransformationComponentJSON);
 
 		// - attribute paths
 		updateMappingJSONString = objectMapper.writeValueAsString(updateMappingJSON);
@@ -418,7 +406,7 @@ public class ProjectsResourceTest extends
 		updateMappingJSONString = objectMapper.writeValueAsString(expectedMapping);
 
 		updateMapping = mappingsResourceTestUtils.createObject(updateMappingJSONString, expectedMapping);
-		final Set<Mapping> updateMappings = new LinkedHashSet<Mapping>();
+		final Set<Mapping> updateMappings = new LinkedHashSet<>();
 		updateMappings.add(updateMapping);
 
 		persistedProject.setMappings(updateMappings);
@@ -504,7 +492,7 @@ public class ProjectsResourceTest extends
 
 		configurationsArray.add(persistedConfigurationJSON);
 
-		resourceJSON.put("configurations", configurationsArray);
+		resourceJSON.set("configurations", configurationsArray);
 
 		// re-init expect resource
 		resourceJSONString = objectMapper.writeValueAsString(resourceJSON);
@@ -590,13 +578,13 @@ public class ProjectsResourceTest extends
 			attributePathsArray.add(attributePathJSON);
 		}
 
-		schemaJSON.put("attribute_paths", attributePathsArray);
+		schemaJSON.set("attribute_paths", attributePathsArray);
 
 		// manipulate record class
 		final String recordClassJSONString = objectMapper.writeValueAsString(recordClass);
 		final ObjectNode recordClassJSON = objectMapper.readValue(recordClassJSONString, ObjectNode.class);
 
-		schemaJSON.put("record_class", recordClassJSON);
+		schemaJSON.set("record_class", recordClassJSON);
 
 		// re-init expect schema
 		schemaJSONString = objectMapper.writeValueAsString(schemaJSON);
@@ -615,17 +603,17 @@ public class ProjectsResourceTest extends
 		final String finalResourceJSONString = objectMapper.writeValueAsString(resource);
 		final ObjectNode finalResourceJSON = objectMapper.readValue(finalResourceJSONString, ObjectNode.class);
 
-		dataModelJSON.put("data_resource", finalResourceJSON);
+		dataModelJSON.set("data_resource", finalResourceJSON);
 
 		final String finalConfigurationJSONString = objectMapper.writeValueAsString(resource.getConfigurations().iterator().next());
 		final ObjectNode finalConfigurationJSON = objectMapper.readValue(finalConfigurationJSONString, ObjectNode.class);
 
-		dataModelJSON.put("configuration", finalConfigurationJSON);
+		dataModelJSON.set("configuration", finalConfigurationJSON);
 
 		final String finalSchemaJSONString = objectMapper.writeValueAsString(schema);
 		final ObjectNode finalSchemaJSON = objectMapper.readValue(finalSchemaJSONString, ObjectNode.class);
 
-		dataModelJSON.put("schema", finalSchemaJSON);
+		dataModelJSON.set("schema", finalSchemaJSON);
 
 		// re-init expect object
 		dataModelJSONString = objectMapper.writeValueAsString(dataModelJSON);
@@ -653,7 +641,7 @@ public class ProjectsResourceTest extends
 		final String finalSchemaJSONString = objectMapper.writeValueAsString(schema);
 		final ObjectNode finalSchemaJSON = objectMapper.readValue(finalSchemaJSONString, ObjectNode.class);
 
-		dataModelJSON.put("schema", finalSchemaJSON);
+		dataModelJSON.set("schema", finalSchemaJSON);
 
 		// re-init expect object
 		dataModelJSONString = objectMapper.writeValueAsString(dataModelJSON);
@@ -694,7 +682,7 @@ public class ProjectsResourceTest extends
 
 		Assert.assertNotNull("the function JSON shouldn't be null", finalFunctionJSON);
 
-		componentJSON.put("function", finalFunctionJSON);
+		componentJSON.set("function", finalFunctionJSON);
 
 		// re-init expect component
 		componentJSONString = objectMapper.writeValueAsString(componentJSON);
@@ -718,7 +706,7 @@ public class ProjectsResourceTest extends
 
 		componentsJSONArray.add(finalComponentJSON);
 
-		transformationJSON.put("components", componentsJSONArray);
+		transformationJSON.set("components", componentsJSONArray);
 
 		// re-init expect transformation
 		transformationJSONString = objectMapper.writeValueAsString(transformationJSON);
@@ -738,7 +726,7 @@ public class ProjectsResourceTest extends
 
 		Assert.assertNotNull("the Transformation JSON shouldn't be null", finalTransformationJSON);
 
-		transformationComponentJSON.put("function", finalTransformationJSON);
+		transformationComponentJSON.set("function", finalTransformationJSON);
 
 		// re-init expect transformation component
 		transformationComponentJSONString = objectMapper.writeValueAsString(transformationComponentJSON);
@@ -758,7 +746,7 @@ public class ProjectsResourceTest extends
 
 		Assert.assertNotNull("the transformation component JSON shouldn't be null", finalTransformationComponentJSON);
 
-		mappingJSON.put("transformation", finalTransformationComponentJSON);
+		mappingJSON.set("transformation", finalTransformationComponentJSON);
 
 		final String finalInputAttributePathJSONString = objectMapper.writeValueAsString(inputMappingAttributePathInstance);
 
@@ -772,7 +760,7 @@ public class ProjectsResourceTest extends
 
 		inputAttributePathsJSON.add(finalInputAttributePathJSON);
 
-		mappingJSON.put("input_attribute_paths", inputAttributePathsJSON);
+		mappingJSON.set("input_attribute_paths", inputAttributePathsJSON);
 
 		final String finalOutputAttributePathJSONString = objectMapper.writeValueAsString(outputMappingAttributePathInstance);
 
@@ -782,7 +770,7 @@ public class ProjectsResourceTest extends
 
 		Assert.assertNotNull("the output attribute path JSON shouldn't be null", finalOutputAttributePathJSON);
 
-		mappingJSON.put("output_attribute_path", finalOutputAttributePathJSON);
+		mappingJSON.set("output_attribute_path", finalOutputAttributePathJSON);
 
 		// re-init expect object
 		mappingJSONString = objectMapper.writeValueAsString(mappingJSON);

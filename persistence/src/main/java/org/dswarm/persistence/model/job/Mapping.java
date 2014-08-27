@@ -1,6 +1,5 @@
 package org.dswarm.persistence.model.job;
 
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,10 +15,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import ch.lambdaj.Lambda;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.google.common.collect.Sets;
-import org.hamcrest.Matchers;
 
 import org.dswarm.persistence.model.BasicDMPJPAObject;
 import org.dswarm.persistence.model.schema.AttributePath;
@@ -30,7 +27,7 @@ import org.dswarm.persistence.util.DMPPersistenceUtil;
  * A mapping is an instantiation of a {@link Function} or {@link Transformation} with a given collection of input
  * {@link AttributePath}s and an output {@link AttributePath}. Optionally, a mapping can consist of an input {@link Filter} and an
  * output {@link Filter}.
- * 
+ *
  * @author tgaengler
  */
 @XmlRootElement
@@ -77,7 +74,7 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Gets the input attribute paths of the mapping.
-	 * 
+	 *
 	 * @return the input attribute paths of the mapping
 	 */
 	public Set<MappingAttributePathInstance> getInputAttributePaths() {
@@ -87,7 +84,7 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Sets the input attribute paths of the mapping
-	 * 
+	 *
 	 * @param inputAttributePathsArg a new collection of input attribute paths
 	 */
 	public void setInputAttributePaths(final Set<MappingAttributePathInstance> inputAttributePathsArg) {
@@ -114,37 +111,26 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Gets an input attribute path by a given identifier
-	 * 
+	 *
 	 * @param id the input attribute path identifier
 	 * @return the matched input attribute path or null
 	 */
 	public MappingAttributePathInstance getInputAttributePath(final Long id) {
 
-		if (id == null) {
-
+		if (id == null || inputAttributePaths == null) {
 			return null;
 		}
 
-		if (inputAttributePaths == null || inputAttributePaths.isEmpty()) {
-
-			return null;
-		}
-
-		final List<MappingAttributePathInstance> inputAttributePathsFiltered = Lambda.filter(
-				Lambda.having(Lambda.on(MappingAttributePathInstance.class).getId(), Matchers.equalTo(id)), inputAttributePaths);
-
-		if (inputAttributePathsFiltered == null || inputAttributePathsFiltered.isEmpty()) {
-
-			return null;
-		}
-
-		return inputAttributePathsFiltered.get(0);
+		return inputAttributePaths.stream()
+				.filter(iap -> iap.getId().equals(id))
+				.findFirst()
+				.orElse(null);
 	}
 
 	/**
 	 * Adds a new input attribute path to the collection of input attribute paths of this mapping.<br>
 	 * Created by: tgaengler
-	 * 
+	 *
 	 * @param inputAttributePath a new input attribute path
 	 */
 	public void addInputAttributePath(final MappingAttributePathInstance inputAttributePath) {
@@ -166,7 +152,7 @@ public class Mapping extends BasicDMPJPAObject {
 	/**
 	 * Removes an existing input attribute path from the collection of input attribute paths of this mapping.<br>
 	 * Created by: tgaengler
-	 * 
+	 *
 	 * @param inputAttributePath an existing input attribute path that should be removed
 	 */
 	public void removeInputAttributePath(final MappingAttributePathInstance inputAttributePath) {
@@ -179,7 +165,7 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Gets the output attribute path of the mapping.
-	 * 
+	 *
 	 * @return the output attribute path of the mapping
 	 */
 	public MappingAttributePathInstance getOutputAttributePath() {
@@ -189,7 +175,7 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Sets the output attribute path of the mapping
-	 * 
+	 *
 	 * @param outputAttributePathArg a new output attribute path
 	 */
 	public void setOutputAttributePath(final MappingAttributePathInstance outputAttributePathArg) {
@@ -199,7 +185,7 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Gets the function or transformation instantiation (component) of the mapping.
-	 * 
+	 *
 	 * @return the function or transformation instantiation (component) of the mapping
 	 */
 	public Component getTransformation() {
@@ -209,7 +195,7 @@ public class Mapping extends BasicDMPJPAObject {
 
 	/**
 	 * Sets the function or transformation instantiation (component) of the mapping.
-	 * 
+	 *
 	 * @param transformationArg a new function or transformation instantiation (component)
 	 */
 	public void setTransformation(final Component transformationArg) {

@@ -20,7 +20,7 @@ import org.dswarm.persistence.util.DMPPersistenceUtil;
 /**
  * Serialises an object as JSON. Records and entities are represented as objects unless their name ends with []. If the name ends
  * with [], an array is created.
- * 
+ *
  * @author tgaengler
  * @author phorn
  */
@@ -85,14 +85,14 @@ public final class CSVJSONEncoder extends DefaultStreamPipe<ObjectReceiver<JsonN
 
 				if (schemaJSON != null) {
 
-					json.put("schema", schemaJSON);
+					json.set("schema", schemaJSON);
 				}
 			}
 
 			final ArrayNode dataJSONArray = new ArrayNode(DMPPersistenceUtil.getJSONFactory());
 
 			dataJSONArray.add(dataJSON);
-			json.put("data", dataJSONArray);
+			json.set("data", dataJSONArray);
 
 		}
 

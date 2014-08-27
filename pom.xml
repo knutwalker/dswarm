@@ -21,48 +21,49 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit.version>4.11</junit.version>
-		<dmp.version>0.1-SNAPSHOT</dmp.version>
-		<maven-release-plugin.version>2.5</maven-release-plugin.version>
-		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
-		<maven-assembly-plugin.version>2.4</maven-assembly-plugin.version>
-		<maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
-		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
-		<maven-install-plugin.version>2.5.1</maven-install-plugin.version>
-		<maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
-		<maven-checkstyle-plugin.version>2.11</maven-checkstyle-plugin.version>
-		<maven-version-plugin.version>2.1</maven-version-plugin.version>
-		<maven-pmd-plugin.version>3.1</maven-pmd-plugin.version>
-		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
-		<maven-site-plugin.version>3.3</maven-site-plugin.version>
-		<maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
-		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
-		<maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
-		<maven-jxr-plugin.version>2.4</maven-jxr-plugin.version>
-		<maven-shade-plugin.version>2.2</maven-shade-plugin.version>
-		<maven-war-plugin.version>2.4</maven-war-plugin.version>
-		<maven-jar-plugin.version>2.4</maven-jar-plugin.version>
-		<maven-failsafe-plugin.version>2.16</maven-failsafe-plugin.version>
-		<cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
-		<exec-maven-plugin.version>1.3</exec-maven-plugin.version>
-		<org.umlgraph.doclet.version>5.1</org.umlgraph.doclet.version>
 		<java.source.version>1.8</java.source.version>
 		<java.target.version>1.8</java.target.version>
-		<maxallowedviolations>7000</maxallowedviolations>
-		<google.guava.version>17.0</google.guava.version>
-		<google.collections.version>1.0</google.collections.version>
-		<jackson.version>2.3.3</jackson.version>
-		<slf4j.api.version>1.7.7</slf4j.api.version>
+		<dmp.version>0.1-SNAPSHOT</dmp.version>
 		<apache.commons.version>3.3.2</apache.commons.version>
 		<commons-io.version>2.4</commons-io.version>
+		<google.collections.version>1.0</google.collections.version>
+		<google.guava.version>17.0</google.guava.version>
 		<guice.version>3.0</guice.version>
-		<metrics.version>3.0.2</metrics.version>
-		<metafacture-core.version>2.0.2-SNAPSHOT</metafacture-core.version>
-		<swagger.version>1.3.5</swagger.version>
+		<jackson.version>2.3.3</jackson.version>
 		<javaee.version>7.0</javaee.version>
 		<jersey.version>2.8</jersey.version>
+		<junit.version>4.11</junit.version>
 		<logback.version>1.1.2</logback.version>
+		<metafacture-core.version>2.0.2-SNAPSHOT</metafacture-core.version>
+		<metrics.version>3.0.2</metrics.version>
+		<org.umlgraph.doclet.version>5.1</org.umlgraph.doclet.version>
+		<slf4j.api.version>1.7.7</slf4j.api.version>
+		<swagger.version>1.3.7</swagger.version>
+		<tika-core.version>1.5</tika-core.version>
+		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+		<maven-assembly-plugin.version>2.4.1</maven-assembly-plugin.version>
+		<maven-checkstyle-plugin.version>2.12.1</maven-checkstyle-plugin.version>
+		<maven-clean-plugin.version>2.5</maven-clean-plugin.version>
+		<maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+		<maven-dependency-plugin.version>2.8</maven-dependency-plugin.version>
+		<maven-deploy-plugin.version>2.8.1</maven-deploy-plugin.version>
+		<maven-failsafe-plugin.version>2.16</maven-failsafe-plugin.version>
+		<maven-install-plugin.version>2.5.1</maven-install-plugin.version>
+		<maven-jar-plugin.version>2.5</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+		<maven-jxr-plugin.version>2.4</maven-jxr-plugin.version>
+		<maven-pmd-plugin.version>3.2</maven-pmd-plugin.version>
+		<maven-project-info-reports-plugin.version>2.7</maven-project-info-reports-plugin.version>
+		<maven-release-plugin.version>2.5</maven-release-plugin.version>
+		<maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+		<maven-shade-plugin.version>2.2</maven-shade-plugin.version>
+		<maven-site-plugin.version>3.4</maven-site-plugin.version>
+		<maven-surefire-plugin.version>2.17</maven-surefire-plugin.version>
+		<maven-version-plugin.version>2.1</maven-version-plugin.version>
+		<maven-war-plugin.version>2.4</maven-war-plugin.version>
+		<cobertura-maven-plugin.version>2.6</cobertura-maven-plugin.version>
+		<exec-maven-plugin.version>1.3.2</exec-maven-plugin.version>
+		<maxallowedviolations>7000</maxallowedviolations>
 	</properties>
 
 	<repositories>
@@ -622,7 +623,7 @@
 		<dependency>
 			<groupId>org.apache.tika</groupId>
 			<artifactId>tika-core</artifactId>
-			<version>1.0</version>
+			<version>${tika-core.version}</version>
 		</dependency>
 	</dependencies>
 	<!-- </dependencyManagement> -->

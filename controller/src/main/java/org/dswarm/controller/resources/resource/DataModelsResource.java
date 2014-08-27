@@ -55,7 +55,7 @@ import org.dswarm.persistence.service.resource.DataModelService;
 
 /**
  * A resource (controller service) for {@link DataModel}s.
- * 
+ *
  * @author tgaengler
  */
 @RequestScoped
@@ -78,7 +78,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 	/**
 	 * Creates a new resource (controller service) for {@link DataModel}s with the provider of the data model persistence service,
 	 * the object mapper, metrics registry, event bus provider and data model util.
-	 * 
+	 *
 	 * @param utilsFactory
 	 * @param dmpStatusArg an metrics registry
 	 * @param dataModelUtilArg the data model util
@@ -106,7 +106,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 	/**
 	 * This endpoint returns a data model as JSON representation for the provided data model identifier.
-	 * 
+	 *
 	 * @param id a data model identifier
 	 * @return a JSON representation of a data model
 	 */
@@ -128,7 +128,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 	 * This endpoint consumes a data model as JSON representation and persists this data model in the database, i.e., the data
 	 * resource of this data model will be processed re. the parameters in the configuration of the data model. Thereby, the
 	 * schema of the data will be created as well.
-	 * 
+	 *
 	 * @param jsonObjectString a JSON representation of one data model
 	 * @return the persisted data model as JSON representation
 	 * @throws DMPControllerException
@@ -148,7 +148,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 	/**
 	 * This endpoint returns a list of all data models as JSON representation.
-	 * 
+	 *
 	 * @return a list of all data models as JSON representation
 	 * @throws DMPControllerException
 	 */
@@ -166,7 +166,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 	/**
 	 * This endpoint consumes a data model as JSON representation and updates this data model in the database.
-	 * 
+	 *
 	 * @param jsonObjectString a JSON representation of one data model
 	 * @param id a data model identifier
 	 * @return the updated data model as JSON representation
@@ -189,7 +189,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 	/**
 	 * Returns the data for a given data model.
-	 * 
+	 *
 	 * @param id the data model identifier
 	 * @param atMost the number of records that should be returned at most
 	 * @return the data for a given data model
@@ -207,13 +207,13 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 		// final Timer.Context context = dmpStatus.getConfigurationData();
 
-		DataModelsResource.LOG.debug("try to get data for data model with id '" + id + "'");
+		DataModelsResource.LOG.debug("try to get data for data model with id '{}'", id);
 
 		final Optional<Iterator<Tuple<String, JsonNode>>> data = dataModelUtil.getData(id, Optional.fromNullable(atMost));
 
 		if (!data.isPresent()) {
 
-			DataModelsResource.LOG.debug("couldn't find data for data model with id '" + id + "'");
+			DataModelsResource.LOG.debug("couldn't find data for data model with id '{}'", id);
 
 			// dmpStatus.stop(context);
 			return Response.status(Status.NOT_FOUND).build();
@@ -244,8 +244,8 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 			throw new DMPControllerException("couldn't transform data to JSON string.\n" + e.getMessage());
 		}
 
-		DataModelsResource.LOG.debug("return data for data model with id '" + id + "' ");
-		DataModelsResource.LOG.trace("and content '" + jsonString + "'");
+		DataModelsResource.LOG.debug("return data for data model with id '{}' ", id);
+		DataModelsResource.LOG.trace("and content '{}'", jsonString);
 
 		// dmpStatus.stop(context);
 		return buildResponse(jsonString);
@@ -253,7 +253,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 	/**
 	 * This endpoint deletes a data model that matches the given id.
-	 * 
+	 *
 	 * @param id a data model identifier
 	 * @return status 204 if removal was successful, 404 if id not found, 409 if it couldn't be removed, or 500 if something else
 	 *         went wrong
@@ -305,8 +305,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 				if (proxyUpdatedDataModel == null) {
 
-					DataModelsResource.LOG.error("something went wrong, when trying to add configuration to data resource of data model '"
-							+ dataModel.getId() + "'");
+					DataModelsResource.LOG.error("something went wrong, when trying to add configuration to data resource of data model '{}'", dataModel.getId());
 
 					proxyDataModel = null;
 				} else {
@@ -317,8 +316,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 				}
 			} catch (final DMPPersistenceException e) {
 
-				DataModelsResource.LOG.error("something went wrong, when trying to add configuration to data resource of data model '"
-						+ dataModel.getId() + "'");
+				DataModelsResource.LOG.error("something went wrong, when trying to add configuration to data resource of data model '{}'", dataModel.getId());
 
 				proxyDataModel = null;
 			}
@@ -338,7 +336,7 @@ public class DataModelsResource extends ExtendedBasicDMPResource<DataModelsResou
 
 		// final Timer.Context context = dmpStatus.createNewConfiguration();
 
-		DataModelsResource.LOG.debug("try to process data for data model with id '" + dataModel.getId() + "'");
+		DataModelsResource.LOG.debug("try to process data for data model with id '{}'", dataModel.getId());
 
 		final Configuration configuration = dataModel.getConfiguration();
 

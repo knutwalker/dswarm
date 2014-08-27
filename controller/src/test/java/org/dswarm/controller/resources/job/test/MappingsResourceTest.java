@@ -143,7 +143,7 @@ public class MappingsResourceTest extends
 
 		Assert.assertNotNull("the function JSON shouldn't be null", finalFunctionJSON);
 
-		componentJSON.put("function", finalFunctionJSON);
+		componentJSON.set("function", finalFunctionJSON);
 
 		// re-init expect component
 		componentJSONString = objectMapper.writeValueAsString(componentJSON);
@@ -167,7 +167,7 @@ public class MappingsResourceTest extends
 
 		componentsJSONArray.add(finalComponentJSON);
 
-		transformationJSON.put("components", componentsJSONArray);
+		transformationJSON.set("components", componentsJSONArray);
 
 		// re-init expect transformation
 		transformationJSONString = objectMapper.writeValueAsString(transformationJSON);
@@ -187,7 +187,7 @@ public class MappingsResourceTest extends
 
 		Assert.assertNotNull("the Transformation JSON shouldn't be null", finalTransformationJSON);
 
-		transformationComponentJSON.put("function", finalTransformationJSON);
+		transformationComponentJSON.set("function", finalTransformationJSON);
 
 		// re-init expect transformation component
 		transformationComponentJSONString = objectMapper.writeValueAsString(transformationComponentJSON);
@@ -206,7 +206,7 @@ public class MappingsResourceTest extends
 
 		Assert.assertNotNull("the transformation component JSON shouldn't be null", finalTransformationComponentJSON);
 
-		objectJSON.put("transformation", finalTransformationComponentJSON);
+		objectJSON.set("transformation", finalTransformationComponentJSON);
 
 		final String finalInputAttributePathJSONString = objectMapper.writeValueAsString(inputMappingAttributePathInstance);
 
@@ -220,7 +220,7 @@ public class MappingsResourceTest extends
 
 		inputAttributePathsJSON.add(finalInputAttributePathJSON);
 
-		objectJSON.put("input_attribute_paths", inputAttributePathsJSON);
+		objectJSON.set("input_attribute_paths", inputAttributePathsJSON);
 
 		final String finalOutputAttributePathJSONString = objectMapper.writeValueAsString(outputMappingAttributePathInstance);
 
@@ -230,7 +230,7 @@ public class MappingsResourceTest extends
 
 		Assert.assertNotNull("the output attribute path JSON shouldn't be null", finalOutputAttributePathJSON);
 
-		objectJSON.put("output_attribute_path", finalOutputAttributePathJSON);
+		objectJSON.set("output_attribute_path", finalOutputAttributePathJSON);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);

@@ -113,7 +113,7 @@ public class ContentSchemasResourceTest
 			attributePathsArray.add(attributePathJSON);
 		}
 
-		objectJSON.put("key_attribute_paths", attributePathsArray);
+		objectJSON.set("key_attribute_paths", attributePathsArray);
 
 		final Attribute rdfValue = attributesResourceTestUtils.getObject((long) 43);
 		attributes.put(rdfValue.getId(), rdfValue);
@@ -124,7 +124,7 @@ public class ContentSchemasResourceTest
 		final String valueAttributePathJSONString = objectMapper.writeValueAsString(valueAttributePath);
 		final ObjectNode valueAttributePathJSON = objectMapper.readValue(valueAttributePathJSONString, ObjectNode.class);
 
-		objectJSON.put("value_attribute_path", valueAttributePathJSON);
+		objectJSON.set("value_attribute_path", valueAttributePathJSON);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);

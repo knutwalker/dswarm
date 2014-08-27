@@ -139,7 +139,7 @@ public class SchemasResourceTest extends
 			schemaAttributePathsArray.add(attributePathJSON);
 		}
 
-		objectJSON.put("attribute_paths", schemaAttributePathsArray);
+		objectJSON.set("attribute_paths", schemaAttributePathsArray);
 
 		// START content schema
 
@@ -157,7 +157,7 @@ public class SchemasResourceTest extends
 			keyAttributePathsArray.add(attributePathJSON);
 		}
 
-		contentSchemaJSON.put("key_attribute_paths", keyAttributePathsArray);
+		contentSchemaJSON.set("key_attribute_paths", keyAttributePathsArray);
 
 		final Attribute rdfValue = attributesResourceTestUtils.getObject((long) 43);
 		attributes.put(rdfValue.getId(), rdfValue);
@@ -168,7 +168,7 @@ public class SchemasResourceTest extends
 		final String valueAttributePathJSONString = objectMapper.writeValueAsString(valueAttributePath);
 		final ObjectNode valueAttributePathJSON = objectMapper.readValue(valueAttributePathJSONString, ObjectNode.class);
 
-		contentSchemaJSON.put("value_attribute_path", valueAttributePathJSON);
+		contentSchemaJSON.set("value_attribute_path", valueAttributePathJSON);
 
 		final String finalContentSchemaJSONString = objectMapper.writeValueAsString(contentSchemaJSON);
 		final ContentSchema expectedContentSchema = objectMapper.readValue(finalContentSchemaJSONString, ContentSchema.class);
@@ -181,13 +181,13 @@ public class SchemasResourceTest extends
 		final String recordClassJSONString = objectMapper.writeValueAsString(recordClass);
 		final ObjectNode recordClassJSON = objectMapper.readValue(recordClassJSONString, ObjectNode.class);
 
-		objectJSON.put("record_class", recordClassJSON);
+		objectJSON.set("record_class", recordClassJSON);
 
 		// manipulate content schema
 		final String persistentContentSchemaJSONString = objectMapper.writeValueAsString(contentSchema);
 		final ObjectNode persistentContentSchemaJSON = objectMapper.readValue(persistentContentSchemaJSONString, ObjectNode.class);
 
-		objectJSON.put("content_schema", persistentContentSchemaJSON);
+		objectJSON.set("content_schema", persistentContentSchemaJSON);
 
 		// re-init expect object
 		objectJSONString = objectMapper.writeValueAsString(objectJSON);

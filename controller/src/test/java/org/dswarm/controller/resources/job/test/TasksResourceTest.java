@@ -179,10 +179,10 @@ public class TasksResourceTest extends ResourceTest {
 		final ObjectNode finalDataModelJSON = objectMapper.readValue(finalDataModelJSONString, ObjectNode.class);
 
 		final ObjectNode taskJSON = objectMapper.readValue(taskJSONString, ObjectNode.class);
-		taskJSON.put("input_data_model", finalDataModelJSON);
+		taskJSON.set("input_data_model", finalDataModelJSON);
 
 		// manipulate output data model (output data model = input data model (for now))
-		taskJSON.put("output_data_model", finalDataModelJSON);
+		taskJSON.set("output_data_model", finalDataModelJSON);
 
 		final String finalTaskJSONString = objectMapper.writeValueAsString(taskJSON);
 

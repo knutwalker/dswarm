@@ -154,7 +154,7 @@ public class ProjectWithNewEntitiesAndOnePersistentMappingAttributePathInstanceR
 
 		configurationsArray.add(persistedConfigurationJSON);
 
-		resourceJSON.put("configurations", configurationsArray);
+		resourceJSON.set("configurations", configurationsArray);
 
 		// re-init expect resource
 		resourceJSONString = objectMapper.writeValueAsString(resourceJSON);
@@ -182,7 +182,7 @@ public class ProjectWithNewEntitiesAndOnePersistentMappingAttributePathInstanceR
 
 		inputMAPIAttributePathAttributes.add(persistedInputMAPIAttributeJSON);
 
-		inputMAPIAttributePathJSON.put("attributes", inputMAPIAttributePathAttributes);
+		inputMAPIAttributePathJSON.set("attributes", inputMAPIAttributePathAttributes);
 
 		// re-init expected attribute path
 		inputMAPIAttributePathJSONString = objectMapper.writeValueAsString(inputMAPIAttributePathJSON);
@@ -200,7 +200,7 @@ public class ProjectWithNewEntitiesAndOnePersistentMappingAttributePathInstanceR
 		final String persistedInputMAPIAttributePathJSONString = objectMapper.writeValueAsString(inputMAPIAttributePath);
 		final ObjectNode persistedInputMAPIAttributePathJSON = objectMapper.readValue(persistedInputMAPIAttributePathJSONString, ObjectNode.class);
 
-		inputMAPIJSON.put("attribute_path", persistedInputMAPIAttributePathJSON);
+		inputMAPIJSON.set("attribute_path", persistedInputMAPIAttributePathJSON);
 
 		// re-init expected mapping attribute path instance
 		inputMAPIJSONString = objectMapper.writeValueAsString(inputMAPIJSON);
@@ -222,13 +222,13 @@ public class ProjectWithNewEntitiesAndOnePersistentMappingAttributePathInstanceR
 		final String finalResourceJSONString = objectMapper.writeValueAsString(resource);
 		final ObjectNode finalResourceJSON = objectMapper.readValue(finalResourceJSONString, ObjectNode.class);
 
-		dataModelJSON.put("data_resource", finalResourceJSON);
+		dataModelJSON.set("data_resource", finalResourceJSON);
 
 		// configuration
 		final String finalConfigurationJSONString = objectMapper.writeValueAsString(resource.getConfigurations().iterator().next());
 		final ObjectNode finalConfigurationJSON = objectMapper.readValue(finalConfigurationJSONString, ObjectNode.class);
 
-		dataModelJSON.put("configuration", finalConfigurationJSON);
+		dataModelJSON.set("configuration", finalConfigurationJSON);
 
 		// mapping attribute path instance
 		final ObjectNode mappingJSON = (ObjectNode) projectJSON.get("mappings").get(0);
@@ -242,7 +242,7 @@ public class ProjectWithNewEntitiesAndOnePersistentMappingAttributePathInstanceR
 		newIMAPIs.add(firstIMAPIJSON);
 		newIMAPIs.add(secondIMAPI);
 
-		mappingJSON.put("input_attribute_paths", newIMAPIs);
+		mappingJSON.set("input_attribute_paths", newIMAPIs);
 
 		objectJSONString = objectMapper.writeValueAsString(projectJSON);
 

@@ -339,7 +339,7 @@ public class GDMModel implements Model {
 
 			final ObjectNode resourceJson = DMPPersistenceUtil.getJSONObjectMapper().createObjectNode();
 
-			resourceJson.put(resourceURI, json);
+			resourceJson.set(resourceURI, json);
 			jsonArray.add(resourceJson);
 		}
 
@@ -388,7 +388,7 @@ public class GDMModel implements Model {
 
 				final ObjectNode objectJSONObject = DMPPersistenceUtil.getJSONObjectMapper().createObjectNode();
 
-				objectJSONObject.put(object.getUri(), jsonNode);
+				objectJSONObject.set(object.getUri(), jsonNode);
 
 				rootJson.add(objectJSONObject);
 
@@ -559,7 +559,7 @@ public class GDMModel implements Model {
 					if (deepestAttributeTransformed) {
 
 						currentAttribute = DMPPersistenceUtil.getJSONObjectMapper().createObjectNode();
-						currentAttribute.put(attribute, previousAttribute);
+						currentAttribute.set(attribute, previousAttribute);
 						previousAttribute = currentAttribute;
 					} else {
 
@@ -663,7 +663,7 @@ public class GDMModel implements Model {
 
 			final JsonNode nextLevelAttributePathJson = generateSchema(nextLevelAttributePathsForRootAttributePath, level + 1);
 
-			jsonObject.put(sampleAttributePath.getAttributePath().get(level - 1), nextLevelAttributePathJson);
+			jsonObject.set(sampleAttributePath.getAttributePath().get(level - 1), nextLevelAttributePathJson);
 
 			return jsonObject;
 		} else {
