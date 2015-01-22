@@ -27,9 +27,9 @@
 
 	<modules>
 		<module>init</module>
-		<module>controller</module>
-		<module>converter</module>
 		<module>persistence</module>
+		<module>converter</module>
+		<module>controller</module>
 	</modules>
 
 	<prerequisites>
@@ -441,6 +441,47 @@
 							<goal>format</goal>
 						</goals>
 						<phase>process-sources</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${version.maven.plugin.shade}</version>
+				<configuration>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<id>dswarm-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<finalName>dswarm</finalName>
+                            <outputDirectory>../../docker/dswarm/backend</outputDirectory>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<!--
+								Some care is required:
+								http://doc.akka.io/docs/akka/snapshot/general/configuration.html
+								-->
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>reference.conf</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>application.conf</resource>
+								</transformer>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>org.dswarm.controller.EmbeddedServer</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
