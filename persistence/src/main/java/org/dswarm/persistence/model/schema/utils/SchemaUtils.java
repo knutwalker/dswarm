@@ -20,8 +20,6 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.UUID;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -280,7 +278,7 @@ public final class SchemaUtils extends BasicDMPJPAObjectUtils<Schema> {
 		return schemaAttributePathInstance;
 	}
 
-	public static boolean isValidUri(@Nullable final String identifier) {
+	public static boolean isValidUri(final String identifier) {
 		if (identifier != null) {
 			try {
 				final URI _uri = URI.create(identifier);
@@ -318,7 +316,7 @@ public final class SchemaUtils extends BasicDMPJPAObjectUtils<Schema> {
 		return uri + HASH + finalLocalName;
 	}
 
-	public static String mintTermUri(@Nullable final String uri, @Nullable final String localName, Optional<String> baseURI) {
+	public static String mintTermUri(final String uri, final String localName, Optional<String> baseURI) {
 
 		final boolean canUseLocalName = !Strings.isNullOrEmpty(localName);
 
@@ -359,7 +357,7 @@ public final class SchemaUtils extends BasicDMPJPAObjectUtils<Schema> {
 		return proxyUpdatedSchema.getObject();
 	}
 
-	public static String mintRecordUri(@Nullable final String identifier, final String currentId, final Optional<DataModel> optionalDataModel) {
+	public static String mintRecordUri(final String identifier, final String currentId, final Optional<DataModel> optionalDataModel) {
 
 		if (currentId == null) {
 

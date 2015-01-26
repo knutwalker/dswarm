@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.google.common.base.Optional;
@@ -45,7 +43,7 @@ public class JsonNodeReader extends DefaultObjectPipe<Iterator<Tuple<String, Jso
 		this(null);
 	}
 
-	public JsonNodeReader(@Nullable final String recordPrefix) {
+	public JsonNodeReader(final String recordPrefix) {
 
 		this.recordPrefix = Optional.fromNullable(recordPrefix);
 	}

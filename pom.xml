@@ -46,7 +46,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.apache.commons>3.3.2</version.apache.commons>
 		<version.commons-io>2.4</version.commons-io>
-		<version.findebugs.jsr305>3.0.0</version.findebugs.jsr305>
 		<version.google-collections>1.0</version.google-collections>
 		<version.guava-jdk5>14.0.1</version.guava-jdk5>
 		<version.guava>18.0</version.guava>
@@ -752,6 +751,12 @@
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>${version.guice}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.inject</groupId>
+					<artifactId>javax.inject</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>

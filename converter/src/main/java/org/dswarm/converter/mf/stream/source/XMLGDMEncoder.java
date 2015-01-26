@@ -21,8 +21,6 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
@@ -349,7 +347,7 @@ public final class XMLGDMEncoder extends DefaultXmlPipe<ObjectReceiver<GDMModel>
 		});
 	}
 
-	private String mintDataModelUri(@Nullable final String uri) {
+	private String mintDataModelUri(final String uri) {
 		if (Strings.isNullOrEmpty(uri)) {
 			if (dataModelUri.isPresent()) {
 

@@ -233,6 +233,10 @@
 					<groupId>com.google.guava</groupId>
 				</exclusion>
 				<exclusion>
+					<groupId>com.google.code.findbugs</groupId>
+					<artifactId>jsr305</artifactId>
+				</exclusion>
+				<exclusion>
 					<artifactId>jackson-jaxrs-json-provider</artifactId>
 					<groupId>com.fasterxml.jackson.jaxrs</groupId>
 				</exclusion>
@@ -277,6 +281,10 @@
 					<artifactId>guava</artifactId>
 					<groupId>com.google.guava</groupId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.glassfish.hk2.external</groupId>
+					<artifactId>aopalliance-repackaged</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -308,11 +316,6 @@
 					<groupId>org.hamcrest</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.google.code.findbugs</groupId>
-			<artifactId>jsr305</artifactId>
-			<version>${version.findebugs.jsr305}</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -21,8 +21,6 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import org.hibernate.AssertionFailure;
 import org.hibernate.event.spi.EventSource;
 import org.hibernate.pretty.MessageHelper;
@@ -77,7 +75,6 @@ final class FixedEventCache implements Map<Object, Object> {
 	}
 
 	@Override
-	@Nonnull
 	public Set<Entry<Object, Object>> entrySet() {
 		return Collections.unmodifiableSet(entityToCopyMap.entrySet());
 	}
@@ -94,7 +91,6 @@ final class FixedEventCache implements Map<Object, Object> {
 	}
 
 	@Override
-	@Nonnull
 	public Set<Object> keySet() {
 		return Collections.unmodifiableSet(entityToCopyMap.keySet());
 	}
@@ -114,7 +110,7 @@ final class FixedEventCache implements Map<Object, Object> {
 	}
 
 	@Override
-	public void putAll(@Nonnull final Map<?, ?> map) {
+	public void putAll(final Map<?, ?> map) {
 		for (final Entry<?, ?> entry : map.entrySet()) {
 			put(entry.getKey(), entry.getValue());
 		}
@@ -145,7 +141,6 @@ final class FixedEventCache implements Map<Object, Object> {
 	}
 
 	@Override
-	@Nonnull
 	public Collection<Object> values() {
 		return Collections.unmodifiableCollection(entityToCopyMap.values());
 	}

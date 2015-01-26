@@ -20,8 +20,6 @@ import java.sql.Blob;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nullable;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import org.hibernate.HibernateException;
@@ -307,9 +305,8 @@ final class FixedMergeEventListener extends AbstractSaveEventListener implements
 
 	private static Function<Object, Optional<Object>> getEventEntity(final MergeEvent event, final Session source) {
 		return new Function<Object, Optional<Object>>() {
-			@Nullable
 			@Override
-			public Optional<Object> apply(@Nullable final Object input) {
+			public Optional<Object> apply(final Object input) {
 				return getEventEntity(event, input, source);
 			}
 
@@ -332,9 +329,8 @@ final class FixedMergeEventListener extends AbstractSaveEventListener implements
 
 	private static Function<Object, Optional<Object>> getMergeEntity(final MergeEvent event, final FixedEventCache cache) {
 		return new Function<Object, Optional<Object>>() {
-			@Nullable
 			@Override
-			public Optional<Object> apply(@Nullable final Object input) {
+			public Optional<Object> apply(final Object input) {
 				return getMergeEntity(input, cache, event);
 			}
 
