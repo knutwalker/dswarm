@@ -64,7 +64,7 @@ public final class GDMEncoder extends DefaultStreamPipe<ObjectReceiver<GDMModel>
 	private       ResourceNode                          entityNode;
 	private       Resource                              currentResource;
 	private       Stack<Tuple<ResourceNode, Predicate>> entityStack;
-	private       Stack<Resource>                       resourceStack;
+	private final Stack<Resource>                       resourceStack;
 
 	private ResourceNode recordType;
 	private Resource     recordResource;
